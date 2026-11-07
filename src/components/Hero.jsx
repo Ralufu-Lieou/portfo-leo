@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import HeroCanvasBg from './HeroCanvasBg';
+import { PORTFOLIO_INFO } from '../data/portfolioData';
 
 export default function Hero() {
   return (
@@ -9,7 +10,7 @@ export default function Hero() {
       id="hero"
       className="relative w-full min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden"
     >
-      {/* Dark emerald silk video background */}
+      {/* Animated emerald background */}
       <HeroCanvasBg />
 
       {/* Central hero frame */}
@@ -20,45 +21,97 @@ export default function Hero() {
           duration: 0.9,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="relative z-10 w-full max-w-6xl mx-auto border border-white/20 bg-black/50 backdrop-blur-md p-8 sm:p-12 md:p-16 rounded-none flex flex-col justify-between min-h-[420px] md:min-h-[480px] shadow-2xl text-white"
+        className="
+          relative z-10
+          w-full max-w-6xl mx-auto
+          border border-white/20
+          bg-black/20
+          backdrop-blur-[1px]
+          p-8 sm:p-12 md:p-16
+          rounded-none
+          flex flex-col justify-between
+          min-h-[420px] md:min-h-[480px]
+          shadow-2xl
+          text-white
+        "
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.55)',
+          backgroundColor: 'rgba(0, 0, 0, 0.20)',
           borderColor: 'rgba(168, 217, 200, 0.28)',
         }}
       >
         {/* Corner markers */}
-        <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#69C9A9] z-20" />
-        <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#69C9A9] z-20" />
-        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#69C9A9] z-20" />
-        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#69C9A9] z-20" />
+        <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
 
-        {/* Role label */}
-        <div className="text-center w-full mb-6">
-          <span className="text-[#A8D9C8] text-xs md:text-sm font-medium tracking-[0.2em] uppercase">
+        {/* Professional title */}
+        <div className="w-full text-center mb-6">
+          <span
+            className="
+              font-medium
+              text-[#A8D9C8]
+              text-xs md:text-[15px]
+              tracking-[0.28em]
+              uppercase
+            "
+          >
             Lead Product Designer
           </span>
         </div>
 
-        {/* Name and positioning statement */}
+        {/* Name and introduction */}
         <div className="flex flex-col items-center justify-center text-center my-auto py-4">
-          <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-[88px] xl:text-[104px] 2xl:text-[116px] tracking-tight text-[#00C98B] leading-[0.96] select-none w-full">
+
+          <h1
+            className="
+              font-display
+              font-semibold
+              text-4xl sm:text-6xl
+              md:text-7xl lg:text-[88px]
+              xl:text-[104px]
+              tracking-[-0.045em]
+              text-[#00C98D]
+              leading-[1.05]
+              select-none
+              w-full
+            "
+          >
             Ralph Leo
           </h1>
 
-          <p className="mt-6 md:mt-8 max-w-3xl text-[#C1D8CE] text-xs sm:text-sm md:text-[15px] font-normal leading-[1.7] text-center px-2">
-            9+ years designing enterprise, e-commerce and digital
-            experiences — turning complex business requirements into
-            scalable products, workflows and design systems.
+          <p
+            className="
+              mt-6 md:mt-8
+              max-w-4xl
+              text-[#C2DAD1]
+              text-xs sm:text-sm
+              md:text-[16px]
+              font-normal
+              leading-[1.6]
+              text-center
+              px-2
+            "
+          >
+            {PORTFOLIO_INFO.bio}
           </p>
         </div>
 
-        {/* Location and scroll indicator */}
-        <div className="flex items-center justify-between w-full pt-8 text-[11px] md:text-[13px] font-medium text-[#A8D9C8] select-none">
-          <span className="tracking-wide">Chennai, India</span>
-          <span className="tracking-[0.18em] uppercase">
-            Scroll ↓
-          </span>
+        {/* Centred location */}
+        <div
+          className="
+            w-full pt-8
+            text-center
+            text-[12px] md:text-[13px]
+            font-medium
+            text-[#A8D9C8]
+            tracking-wide
+            select-none
+          "
+        >
+          Chennai, India
         </div>
+
       </motion.div>
     </section>
   );
