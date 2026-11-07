@@ -99,7 +99,7 @@ export default function Navbar({ onOpenResume }) {
                 key={link.id || link.label}
                 onClick={handleClick}
                 className="hover-roll-trigger cursor-pointer text-sm md:text-base font-normal tracking-wide relative flex flex-col items-center bg-transparent border-none p-0 outline-none"
-                style={{ color: 'var(--theme-text)' }}
+                style={{ color: '#B9E5D5' }}
               >
                 <span
                   className={`label-roll-container ${isActive ? 'is-active' : ''}`}
