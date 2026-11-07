@@ -39,20 +39,20 @@ export default function Hero() {
           borderColor: 'rgba(168, 217, 200, 0.28)',
         }}
       >
-        {/* Corner markers */}
+        {/* Four emerald corner markers */}
         <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
 
-        {/* Professional title */}
-        <div className="w-full text-center mb-6">
+        {/* Role label */}
+        <div className="w-full text-center mb-3">
           <span
             className="
               font-medium
               text-[#A8D9C8]
               text-xs md:text-[15px]
-              tracking-[0.28em]
+              tracking-[0.42em]
               uppercase
             "
           >
@@ -61,7 +61,7 @@ export default function Hero() {
         </div>
 
         {/* Name and introduction */}
-        <div className="flex flex-col items-center justify-center text-center my-auto py-4">
+        <div className="flex flex-col items-center justify-center text-center my-auto py-2">
 
           <h1
             className="
@@ -70,9 +70,9 @@ export default function Hero() {
               text-4xl sm:text-6xl
               md:text-7xl lg:text-[88px]
               xl:text-[104px]
-              tracking-[-0.045em]
+              tracking-[-0.075em]
               text-[#00C98D]
-              leading-[1.05]
+              leading-[0.95]
               select-none
               w-full
             "
