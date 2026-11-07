@@ -2,7 +2,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import HeroCanvasBg from './HeroCanvasBg';
-import { PORTFOLIO_INFO } from '../data/portfolioData';
 
 export default function Hero() {
   return (
@@ -27,10 +26,12 @@ export default function Hero() {
           border border-white/20
           bg-black/20
           backdrop-blur-[1px]
-          p-8 sm:p-12 md:p-16
+          px-6 py-10
+          sm:px-12 sm:py-12
+          md:px-16 md:py-14
           rounded-none
-          flex flex-col justify-between
-          min-h-[420px] md:min-h-[480px]
+          flex flex-col items-center justify-center
+          min-h-[440px] md:min-h-[500px]
           shadow-2xl
           text-white
         "
@@ -39,30 +40,30 @@ export default function Hero() {
           borderColor: 'rgba(168, 217, 200, 0.28)',
         }}
       >
-        {/* Four emerald corner markers */}
+        {/* Corner markers */}
         <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#65C6A8] z-20 pointer-events-none" />
 
-        {/* Role label */}
-        <div className="w-full text-center mb-3">
+        {/* Main identity group */}
+        <div className="w-full flex flex-col items-center text-center">
+
+          {/* Role */}
           <span
             className="
               font-medium
               text-[#A8D9C8]
-              text-xs md:text-[15px]
+              text-xs sm:text-sm md:text-[15px]
               tracking-[0.42em]
               uppercase
+              mb-3 md:mb-4
             "
           >
             Lead Product Designer
           </span>
-        </div>
 
-        {/* Name and introduction */}
-        <div className="flex flex-col items-center justify-center text-center my-auto py-2">
-
+          {/* Name */}
           <h1
             className="
               font-display
@@ -72,7 +73,7 @@ export default function Hero() {
               xl:text-[104px]
               tracking-[-0.075em]
               text-[#00C98D]
-              leading-[0.95]
+              leading-[0.88]
               select-none
               w-full
             "
@@ -80,27 +81,32 @@ export default function Hero() {
             Ralph Leo
           </h1>
 
+          {/* Introduction */}
           <p
             className="
-              mt-6 md:mt-8
+              mt-5 md:mt-6
               max-w-4xl
               text-[#C2DAD1]
-              text-xs sm:text-sm
-              md:text-[16px]
+              text-xs sm:text-sm md:text-[16px]
               font-normal
-              leading-[1.6]
+              leading-[1.55]
+              tracking-[-0.015em]
               text-center
               px-2
             "
           >
-            {PORTFOLIO_INFO.bio}
+            9+ years shaping enterprise products and digital experiences,
+            connecting business strategy, user needs and technology
+            through thoughtful product design.
           </p>
+
         </div>
 
         {/* Centred location */}
         <div
           className="
-            w-full pt-8
+            w-full
+            mt-12 md:mt-16
             text-center
             text-[12px] md:text-[13px]
             font-medium
