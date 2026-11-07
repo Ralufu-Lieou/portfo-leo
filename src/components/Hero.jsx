@@ -1,54 +1,63 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import HeroCanvasBg from './HeroCanvasBg';
-import { PORTFOLIO_INFO } from '../data/portfolioData';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-full h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden">
-      {/* Moving Violet Silk Canvas Background (transparent so background smoothly turns white on scroll) */}
+    <section
+      id="hero"
+      className="relative w-full min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden"
+    >
+      {/* Dark emerald silk video background */}
       <HeroCanvasBg />
 
-      {/* Exact Central Frame Wrapper matching reference screenshot - keeps its distinct dark luxury frame styling */}
+      {/* Central hero frame */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-6xl mx-auto border border-white/20 bg-black/50 backdrop-blur-md p-8 sm:p-12 md:p-16 rounded-none flex flex-col justify-between min-h-[420px] md:min-h-[480px] shadow-2xl text-white pointer-events-auto"
+        transition={{
+          duration: 0.9,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="relative z-10 w-full max-w-6xl mx-auto border border-white/20 bg-black/50 backdrop-blur-md p-8 sm:p-12 md:p-16 rounded-none flex flex-col justify-between min-h-[420px] md:min-h-[480px] shadow-2xl text-white"
         style={{
           backgroundColor: 'rgba(0, 0, 0, 0.55)',
-          borderColor: 'rgba(255, 255, 255, 0.22)',
-          color: '#ffffff',
+          borderColor: 'rgba(168, 217, 200, 0.28)',
         }}
       >
-        {/* 4 Corner Anchors / Handles matching reference screenshot */}
-        <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#AAAAAA] z-20 pointer-events-none" />
-        <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#AAAAAA] z-20 pointer-events-none" />
-        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#AAAAAA] z-20 pointer-events-none" />
-        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#AAAAAA] z-20 pointer-events-none" />
+        {/* Corner markers */}
+        <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#69C9A9] z-20" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#69C9A9] z-20" />
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#69C9A9] z-20" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#69C9A9] z-20" />
 
-        {/* Top Tag: (Currently at Onething Design) */}
+        {/* Role label */}
         <div className="text-center w-full mb-6">
-          <span className="text-white text-xs md:text-[13px] font-medium tracking-wide">
-            {PORTFOLIO_INFO.experienceTag}
+          <span className="text-[#A8D9C8] text-xs md:text-sm font-medium tracking-[0.2em] uppercase">
+            Lead Product Designer
           </span>
         </div>
 
-        {/* Center: PRODUCT DESIGNER & Bio Subtitle */}
+        {/* Name and positioning statement */}
         <div className="flex flex-col items-center justify-center text-center my-auto py-4">
-          <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[92px] 2xl:text-[104px] tracking-tight text-[#EEEEEE] leading-[0.96] uppercase select-none w-full">
-            {PORTFOLIO_INFO.role}
+          <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-[88px] xl:text-[104px] 2xl:text-[116px] tracking-tight text-[#00C98B] leading-[0.96] select-none w-full">
+            Ralph Leo
           </h1>
 
-          <p className="mt-6 md:mt-8 max-w-2xl text-white/90 text-xs sm:text-sm md:text-[14px] font-normal leading-[1.6] text-center px-2">
-            {PORTFOLIO_INFO.bio}
+          <p className="mt-6 md:mt-8 max-w-3xl text-[#C1D8CE] text-xs sm:text-sm md:text-[15px] font-normal leading-[1.7] text-center px-2">
+            9+ years designing enterprise, e-commerce and digital
+            experiences — turning complex business requirements into
+            scalable products, workflows and design systems.
           </p>
         </div>
 
-        {/* Bottom Row: RALFH LEO & /PORTFOLIO '26 */}
-        <div className="flex items-center justify-between w-full pt-8 text-[12px] md:text-[13px] font-medium text-white select-none">
-          <span className="tracking-widest uppercase">{PORTFOLIO_INFO.name}</span>
-          <span className="text-white/90 tracking-wide font-normal">{PORTFOLIO_INFO.year}</span>
+        {/* Location and scroll indicator */}
+        <div className="flex items-center justify-between w-full pt-8 text-[11px] md:text-[13px] font-medium text-[#A8D9C8] select-none">
+          <span className="tracking-wide">Chennai, India</span>
+          <span className="tracking-[0.18em] uppercase">
+            Scroll ↓
+          </span>
         </div>
       </motion.div>
     </section>
