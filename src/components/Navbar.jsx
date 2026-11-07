@@ -70,9 +70,12 @@ export default function Navbar({ onOpenResume }) {
           }}
           aria-label="Home"
         >
-          <span className="font-display font-medium text-sm md:text-base tracking-widest uppercase">
-            {brandName}
-          </span>
+          <img
+  src="/RL-Logo-header.svg"
+  alt="Ralph Leo"
+  className="w-28 md:w-36 h-auto object-contain"
+  draggable="false"
+/>
         </button>
 
         {/* Right: Nav Links dynamically loaded from config */}
