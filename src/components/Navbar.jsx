@@ -282,22 +282,6 @@ export default function Navbar({ onOpenResume }) {
                   </span>
                 </span>
 
-                {/* Active / hover underline */}
-                <span
-                  className="
-                    absolute -bottom-2 left-0
-                    h-px w-full
-                    origin-left
-                    transition-transform duration-300
-                    group-hover:scale-x-100
-                  "
-                  style={{
-                    backgroundColor: textColor,
-                    transform: isActive
-                      ? 'scaleX(1)'
-                      : undefined,
-                  }}
-                />
               </button>
             );
           })}
