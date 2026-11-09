@@ -4,37 +4,31 @@ import { motion } from 'framer-motion';
 import { NAVBAR_DATA, PORTFOLIO_INFO } from '../data/portfolioData';
 
 export default function Navbar({ onOpenResume }) {
-  const [scrolled, setScrolled] = useState(false);
   const [isLightSection, setIsLightSection] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
 
-  const headerRef = useRef(null);
   const rafRef = useRef(null);
 
+  // Detect whether the header is currently over a light or dark section.
   useEffect(() => {
     const detectSectionTheme = () => {
-      const header = headerRef.current;
-      if (!header) return;
-
-      const headerRect = header.getBoundingClientRect();
-
-      // Check the section immediately below the fixed navigation.
+      const headerHeight = 100;
       const sampleX = window.innerWidth / 2;
       const sampleY = Math.min(
         window.innerHeight - 1,
-        headerRect.bottom + 12
+        headerHeight + 20
       );
 
       const element = document.elementFromPoint(sampleX, sampleY);
 
       let current = element;
-      let lightBackground = false;
+      let detectedLight = false;
 
-      // Walk through parent elements to find the actual section background.
       while (current && current !== document.documentElement) {
-        const bg = window.getComputedStyle(current).backgroundColor;
+        const style = window.getComputedStyle(current);
+        const background = style.backgroundColor;
 
-        const match = bg.match(
+        const match = background.match(
           /rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:\s*[,/]\s*([\d.]+))?\s*\)/
         );
 
@@ -42,16 +36,14 @@ export default function Navbar({ onOpenResume }) {
           const r = Number(match[1]);
           const g = Number(match[2]);
           const b = Number(match[3]);
-          const alpha = match[4] !== undefined
-            ? Number(match[4])
-            : 1;
+          const alpha =
+            match[4] !== undefined ? Number(match[4]) : 1;
 
           if (alpha > 0.1) {
-            // Perceived brightness of the background.
             const brightness =
               (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
-            lightBackground = brightness > 0.72;
+            detectedLight = brightness > 0.72;
             break;
           }
         }
@@ -59,10 +51,9 @@ export default function Navbar({ onOpenResume }) {
         current = current.parentElement;
       }
 
-      setIsLightSection(lightBackground);
-      setScrolled(window.scrollY > 30);
+      setIsLightSection(detectedLight);
 
-      // Track the Work section for active navigation styling.
+      // Detect active Work section.
       const workElement = document.getElementById('work');
 
       if (workElement) {
@@ -73,6 +64,8 @@ export default function Navbar({ onOpenResume }) {
           rect.bottom > window.innerHeight * 0.15;
 
         setActiveSection(isWorkVisible ? 'work' : null);
+      } else {
+        setActiveSection(null);
       }
     };
 
@@ -102,7 +95,16 @@ export default function Navbar({ onOpenResume }) {
     };
   }, []);
 
-  // Return to the top of the portfolio.
+  // Theme colours.
+  const textColor = isLightSection
+    ? '#101713'
+    : '#A8D9C8';
+
+  const logoFilter = isLightSection
+    ? 'brightness(0) saturate(100%)'
+    : 'none';
+
+  // Scroll to top.
   const scrollToTop = () => {
     if (window.lenis) {
       window.lenis.scrollTo(0);
@@ -116,7 +118,7 @@ export default function Navbar({ onOpenResume }) {
     setActiveSection(null);
   };
 
-  // Scroll to a page section.
+  // Navigate to a section.
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
 
@@ -134,6 +136,12 @@ export default function Navbar({ onOpenResume }) {
     setActiveSection(id);
   };
 
+  // Navigation data.
+  const brandName =
+    NAVBAR_DATA?.name ||
+    PORTFOLIO_INFO?.name ||
+    'RALPH LEO';
+
   const links = NAVBAR_DATA?.links || [
     {
       id: 'work',
@@ -149,23 +157,8 @@ export default function Navbar({ onOpenResume }) {
     },
   ];
 
-  const brandName =
-    NAVBAR_DATA?.name ||
-    PORTFOLIO_INFO?.name ||
-    'RALPH LEO';
-
-  // Theme colours.
-  const textColor = isLightSection
-    ? '#101713'
-    : '#A8D9C8';
-
-  const logoFilter = isLightSection
-    ? 'brightness(0) saturate(100%)'
-    : 'none';
-
   return (
     <motion.header
-      ref={headerRef}
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -174,51 +167,55 @@ export default function Navbar({ onOpenResume }) {
       }}
       className="
         fixed top-0 left-0 right-0 z-50
-        transition-all duration-300 ease-in-out
+        transition-all duration-300
       "
       style={{
+        // Frosted glass background.
         backgroundColor: isLightSection
-          ? 'rgba(255, 255, 255, 0.96)'
-          : 'transparent',
+          ? 'rgba(255, 255, 255, 0.82)'
+          : 'rgba(2, 12, 8, 0.72)',
 
+        // Blur the content scrolling underneath.
+        backdropFilter: 'blur(18px)',
+        WebkitBackdropFilter: 'blur(18px)',
+
+        // Subtle section-aware border.
         borderBottom: isLightSection
           ? '1px solid rgba(0, 0, 0, 0.07)'
-          : '1px solid transparent',
+          : '1px solid rgba(168, 217, 200, 0.10)',
 
         boxShadow: isLightSection
-          ? '0 2px 16px rgba(0, 0, 0, 0.025)'
-          : 'none',
+          ? '0 4px 24px rgba(0, 0, 0, 0.025)'
+          : '0 4px 24px rgba(0, 0, 0, 0.12)',
 
         transition:
-          'background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
+          'background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease',
       }}
     >
-      <div className="
-        max-w-7xl mx-auto
-        px-6 md:px-12
-        py-5 md:py-6
-        flex items-center justify-between
-      ">
-
-        {/* Brand Logo */}
+      <div
+        className="
+          max-w-7xl mx-auto
+          px-6 md:px-12
+          py-4 md:py-5
+          flex items-center justify-between
+        "
+      >
+        {/* Logo */}
         <button
           onClick={scrollToTop}
-          className="
-            cursor-pointer
-            flex items-center
-            bg-transparent
-            border-none
-            outline-none
-          "
           aria-label="Go to homepage"
+          className="
+            flex items-center
+            bg-transparent border-none outline-none
+            cursor-pointer
+          "
         >
           <img
             src="/RL-Logo-header.svg"
             alt={brandName}
             className="
               w-28 md:w-36
-              h-auto
-              object-contain
+              h-auto object-contain
               transition-all duration-300
             "
             style={{
@@ -232,8 +229,7 @@ export default function Navbar({ onOpenResume }) {
         <nav className="flex items-center gap-8 md:gap-12">
           {links.map((link) => {
             const isAction = link.type === 'action';
-            const isActive =
-              activeSection === link.id;
+            const isActive = activeSection === link.id;
 
             const handleClick = () => {
               if (
@@ -242,9 +238,7 @@ export default function Navbar({ onOpenResume }) {
               ) {
                 onOpenResume?.();
               } else if (!isAction) {
-                scrollToSection(
-                  link.target || link.id
-                );
+                scrollToSection(link.target || link.id);
               }
             };
 
@@ -253,24 +247,19 @@ export default function Navbar({ onOpenResume }) {
                 key={link.id}
                 onClick={handleClick}
                 className="
-                  relative
+                  group relative
                   cursor-pointer
+                  bg-transparent border-none outline-none
                   text-sm md:text-base
-                  font-medium
-                  tracking-wide
-                  bg-transparent
-                  border-none
-                  outline-none
+                  font-medium tracking-wide
                   transition-colors duration-300
-                  flex flex-col
-                  items-center
                 "
                 style={{
                   color: textColor,
                 }}
               >
-                {/* Hover text roll */}
-                <span className="relative overflow-hidden">
+                {/* Hover text animation */}
+                <span className="relative block overflow-hidden">
                   <span
                     className="
                       block
@@ -286,32 +275,33 @@ export default function Navbar({ onOpenResume }) {
                       absolute top-full left-0
                       block
                       transition-transform duration-300
+                      group-hover:-translate-y-full
                     "
                   >
                     {link.label}
                   </span>
                 </span>
 
-                {/* Active underline */}
+                {/* Active / hover underline */}
                 <span
                   className="
                     absolute -bottom-2 left-0
                     h-px w-full
                     origin-left
                     transition-transform duration-300
+                    group-hover:scale-x-100
                   "
                   style={{
                     backgroundColor: textColor,
                     transform: isActive
                       ? 'scaleX(1)'
-                      : 'scaleX(0)',
+                      : undefined,
                   }}
                 />
               </button>
             );
           })}
         </nav>
-
       </div>
     </motion.header>
   );
